@@ -1,0 +1,32 @@
+.sort-select {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.sort-select__label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.sort-select__control {
+  height: 46px;
+  padding: 0 2.4rem 0 0.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")
+    no-repeat right 0.8rem center;
+  font: inherit;
+  color: var(--color-text);
+  cursor: pointer;
+  appearance: none;
+}
+
+.sort-select__control:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
+  outline: none;
+}

@@ -1,0 +1,43 @@
+.empty-state {
+  padding: 3.5rem 1.5rem;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  text-align: center;
+}
+
+.empty-state__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+.empty-state__title {
+  margin: 0 0 0.4rem;
+  font-size: 1.25rem;
+}
+
+.empty-state__message {
+  margin: 0 0 1.25rem;
+  color: var(--color-text-muted);
+}
+
+.empty-state__button {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  background: transparent;
+  font: inherit;
+  font-weight: 600;
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.empty-state__button:hover {
+  background: var(--color-primary-soft);
+}

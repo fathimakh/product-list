@@ -6,7 +6,9 @@ const NAV_LINKS = [
   { href: '#products', label: 'Products' },
 ]
 
-function Navbar({ brand, cartCount }) {
+function Navbar({ brand, cartCount, onCartClick }) {
+  const itemsLabel = `${cartCount} ${cartCount === 1 ? 'item' : 'items'}`
+
   return (
     <nav className="navbar" aria-label="Main navigation">
       <div className="navbar__inner container">
@@ -27,11 +29,20 @@ function Navbar({ brand, cartCount }) {
           ))}
         </ul>
 
-        <div className="navbar__cart" role="status" aria-live="polite">
+        <button
+          type="button"
+          className="navbar__cart"
+          onClick={onCartClick}
+          aria-label={`Open cart, ${itemsLabel}`}
+        >
           <CartIcon />
-          <span className="navbar__cart-count">{cartCount}</span>
-          <span className="visually-hidden">{cartCount === 1 ? 'item' : 'items'} in cart</span>
-        </div>
+          <span className="navbar__cart-count" aria-hidden="true">
+            {cartCount}
+          </span>
+        </button>
+        <span className="visually-hidden" role="status">
+          {itemsLabel} in cart
+        </span>
       </div>
     </nav>
   )

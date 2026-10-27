@@ -1,13 +1,16 @@
 import { useMemo, useState } from 'react'
+import CartDrawer from './components/CartDrawer'
 import CategoryFilter from './components/CategoryFilter'
 import EmptyState from './components/EmptyState'
 import Header from './components/Header'
 import Navbar from './components/Navbar'
+import ProductDetails from './components/ProductDetails'
 import ProductGrid from './components/ProductGrid'
 import ResultsBar from './components/ResultsBar'
 import SearchBar from './components/SearchBar'
 import SortSelect from './components/SortSelect'
 import products from './data/products'
+import { useCart } from './hooks/useCart'
 import {
   ALL_CATEGORIES,
   SORT_OPTIONS,
@@ -23,7 +26,9 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('')
   const [category, setCategory] = useState(ALL_CATEGORIES)
   const [sortBy, setSortBy] = useState(DEFAULT_SORT)
-  const [cartCount, setCartCount] = useState(0)
+  const [selectedProduct, setSelectedProduct] = useState(null)
+  const [isCartOpen, setIsCartOpen] = useState(false)
+  const cart = useCart()
 
   const visibleProducts = useMemo(
     () => filterAndSortProducts(products, { searchTerm, category, sortBy }),
@@ -38,7 +43,7 @@ function App() {
 
   function handleAddToCart(product) {
     console.log(product.name)
-    setCartCount((count) => count + 1)
+    cart.add(product)
   }
 
   function clearFilters() {
@@ -48,7 +53,7 @@ function App() {
 
   return (
     <>
-      <Navbar brand="ShopEase" cartCount={cartCount} />
+      <Navbar brand="ShopEase" cartCount={cart.count} onCartClick={() => setIsCartOpen(true)} />
       <Header
         title="Find products you'll love"
         subtitle="Browse the catalogue, search by name, filter by category and sort by price or rating."
@@ -72,7 +77,11 @@ function App() {
         />
 
         {visibleProducts.length > 0 ? (
-          <ProductGrid products={visibleProducts} onAddToCart={handleAddToCart} />
+          <ProductGrid
+            products={visibleProducts}
+            onAddToCart={handleAddToCart}
+            onViewDetails={setSelectedProduct}
+          />
         ) : (
           <EmptyState
             title="No products found"
@@ -82,6 +91,24 @@ function App() {
           />
         )}
       </main>
+
+      {selectedProduct && (
+        <ProductDetails
+          product={selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+          onAddToCart={handleAddToCart}
+        />
+      )}
+      <CartDrawer
+        open={isCartOpen}
+        onClose={() => setIsCartOpen(false)}
+        items={cart.items}
+        count={cart.count}
+        total={cart.total}
+        onChangeQuantity={cart.setQuantity}
+        onRemove={cart.remove}
+        onClear={cart.clear}
+      />
     </>
   )
 }

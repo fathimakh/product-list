@@ -19,4 +19,5 @@
   max-width: 560px;
   margin: 0 auto;
   font-size: 1.05rem;
+  text-wrap: balance;
 }

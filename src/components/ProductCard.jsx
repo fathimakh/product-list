@@ -1,42 +1,31 @@
-import { useState } from 'react'
-import fallbackImage from '../assets/image-placeholder.svg'
 import { formatPrice } from '../utils/productUtils'
-import { CartIcon } from './Icons'
+import AddToCartButton from './AddToCartButton'
+import ProductImage from './ProductImage'
 import RatingStars from './RatingStars'
 import './ProductCard.css'
 
-function ProductCard({ product, onAddToCart }) {
+function ProductCard({ product, onAddToCart, onViewDetails }) {
   const { name, price, category, rating, image } = product
-  const [imageFailed, setImageFailed] = useState(false)
 
   return (
     <article className="product-card">
       <div className="product-card__media">
-        <img
-          src={imageFailed ? fallbackImage : image}
-          alt={name}
-          width="300"
-          height="300"
-          loading="lazy"
-          onError={() => setImageFailed(true)}
-        />
+        <ProductImage src={image} alt={name} loading="lazy" />
       </div>
 
       <div className="product-card__body">
-        <span className="product-card__category">{category}</span>
-        <h3 className="product-card__name">{name}</h3>
+        <span className="tag product-card__category">{category}</span>
+        <h3 className="product-card__name">
+          {/* Its ::after covers the whole card, so clicking anywhere opens the details. */}
+          <button type="button" className="product-card__link" onClick={() => onViewDetails(product)}>
+            {name}
+          </button>
+        </h3>
         <RatingStars rating={rating} />
 
         <div className="product-card__footer">
           <p className="product-card__price">{formatPrice(price)}</p>
-          <button
-            type="button"
-            className="product-card__button"
-            onClick={() => onAddToCart(product)}
-          >
-            <CartIcon size={16} />
-            Add to Cart
-          </button>
+          <AddToCartButton onAdd={() => onAddToCart(product)} />
         </div>
       </div>
     </article>

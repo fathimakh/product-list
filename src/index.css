@@ -5,6 +5,7 @@
   --color-focus-ring: rgb(79 70 229 / 0.3);
   --color-accent: #e11d48;
   --color-star: #f59e0b;
+  --color-success: #15803d;
   --color-text: #0f172a;
   --color-text-muted: #475569;
   --color-bg: #f6f7fb;
@@ -60,6 +61,16 @@ img {
   padding-right: var(--page-padding);
 }
 
+/* Small pill label, e.g. a product's category. */
+.tag {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: var(--color-primary-soft);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -87,5 +98,6 @@ img {
   *::before,
   *::after {
     transition: none !important;
+    animation: none !important;
   }
 }

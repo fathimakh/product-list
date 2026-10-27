@@ -57,7 +57,7 @@
 }
 
 /* Stack the search bar and the sort dropdown on small screens. */
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .main {
     padding-top: 1.25rem;
   }

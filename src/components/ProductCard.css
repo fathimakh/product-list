@@ -97,3 +97,19 @@
 .product-card__button:active {
   transform: scale(0.97);
 }
+
+/* Narrow two-column cards: tighter spacing and a full-width button. */
+@media (max-width: 640px) {
+  .product-card__body {
+    padding: 0.85rem;
+  }
+
+  .product-card__price {
+    font-size: 1.05rem;
+  }
+
+  .product-card__button {
+    flex: 1;
+    justify-content: center;
+  }
+}

@@ -4,6 +4,7 @@ import EmptyState from './components/EmptyState'
 import Header from './components/Header'
 import Navbar from './components/Navbar'
 import ProductGrid from './components/ProductGrid'
+import ResultsBar from './components/ResultsBar'
 import SearchBar from './components/SearchBar'
 import SortSelect from './components/SortSelect'
 import products from './data/products'
@@ -31,6 +32,9 @@ function App() {
 
   const trimmedSearch = searchTerm.trim()
   const hasActiveFilters = trimmedSearch !== '' || category !== ALL_CATEGORIES
+  // The empty state has its own "Clear filters" button, so the results bar
+  // only offers one while products are listed.
+  const showClearInResultsBar = hasActiveFilters && visibleProducts.length > 0
 
   function handleAddToCart(product) {
     console.log(product.name)
@@ -59,22 +63,13 @@ function App() {
           <CategoryFilter categories={CATEGORIES} selected={category} onSelect={setCategory} />
         </section>
 
-        <div className="results-bar">
-          <div>
-            <h2 className="results-bar__title">
-              {category === ALL_CATEGORIES ? 'All Products' : category}
-            </h2>
-            <p className="results-bar__count" aria-live="polite">
-              Showing {visibleProducts.length} of {products.length} products
-              {trimmedSearch && ` matching "${trimmedSearch}"`}
-            </p>
-          </div>
-          {hasActiveFilters && (
-            <button type="button" className="results-bar__clear" onClick={clearFilters}>
-              Clear filters
-            </button>
-          )}
-        </div>
+        <ResultsBar
+          title={category === ALL_CATEGORIES ? 'All Products' : category}
+          shown={visibleProducts.length}
+          total={products.length}
+          searchTerm={trimmedSearch}
+          onClear={showClearInResultsBar ? clearFilters : undefined}
+        />
 
         {visibleProducts.length > 0 ? (
           <ProductGrid products={visibleProducts} onAddToCart={handleAddToCart} />

@@ -30,7 +30,7 @@ function Navbar({ brand, cartCount }) {
         <div className="navbar__cart" role="status" aria-live="polite">
           <CartIcon />
           <span className="navbar__cart-count">{cartCount}</span>
-          <span className="visually-hidden">items in cart</span>
+          <span className="visually-hidden">{cartCount === 1 ? 'item' : 'items'} in cart</span>
         </div>
       </div>
     </nav>

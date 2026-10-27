@@ -1,6 +1,6 @@
 // Small inline SVG icons shared by several components.
 // They inherit the text colour and are hidden from screen readers.
-function Icon({ size = 20, children }) {
+function Icon({ size = 20, children, ...rest }) {
   return (
     <svg
       width={size}
@@ -13,6 +13,7 @@ function Icon({ size = 20, children }) {
       strokeLinejoin="round"
       aria-hidden="true"
       focusable="false"
+      {...rest}
     >
       {children}
     </svg>

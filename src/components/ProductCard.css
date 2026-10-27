@@ -58,12 +58,11 @@
   line-height: 1.35;
 }
 
+/* Price above a full-width button, so every card has the same footer. */
 .product-card__footer {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
+  flex-direction: column;
+  gap: 0.6rem;
   margin-top: auto;
   padding-top: 0.5rem;
 }
@@ -77,6 +76,7 @@
 .product-card__button {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.4rem;
   padding: 0.55rem 0.9rem;
   border: 0;
@@ -86,6 +86,7 @@
   font-size: 0.875rem;
   font-weight: 600;
   color: #fff;
+  white-space: nowrap;
   cursor: pointer;
   transition: background-color 0.15s, transform 0.1s;
 }
@@ -98,7 +99,7 @@
   transform: scale(0.97);
 }
 
-/* Narrow two-column cards: tighter spacing and a full-width button. */
+/* Narrow two-column cards: tighter spacing. */
 @media (max-width: 640px) {
   .product-card__body {
     padding: 0.85rem;
@@ -106,10 +107,5 @@
 
   .product-card__price {
     font-size: 1.05rem;
-  }
-
-  .product-card__button {
-    flex: 1;
-    justify-content: center;
   }
 }

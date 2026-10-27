@@ -64,6 +64,7 @@
   place-items: center;
   width: 42px;
   height: 42px;
+  flex-shrink: 0;
   border-radius: 50%;
   background: var(--color-surface-muted);
   color: var(--color-text);
@@ -97,5 +98,30 @@
   .navbar__link {
     padding: 0.4rem 0.55rem;
     font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 374px) {
+  .navbar__inner {
+    gap: 0.5rem;
+  }
+
+  .navbar__brand {
+    gap: 0.4rem;
+    font-size: 1rem;
+  }
+
+  .navbar__logo {
+    width: 30px;
+    height: 30px;
+  }
+
+  .navbar__links {
+    gap: 0;
+  }
+
+  .navbar__link {
+    padding: 0.4rem 0.35rem;
+    font-size: 0.85rem;
   }
 }

@@ -1,6 +1,6 @@
 .results-bar {
   display: flex;
-  align-items: flex-end;
+  align-items: last baseline; /* "Clear filters" lines up with the count */
   justify-content: space-between;
   gap: 1rem;
   margin: 2rem 0 1.25rem;

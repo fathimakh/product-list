@@ -27,7 +27,7 @@
 
 .sort-select__control:focus {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgb(79 70 229 / 0.3);
+  box-shadow: 0 0 0 3px var(--color-focus-ring);
   outline: none;
 }
 

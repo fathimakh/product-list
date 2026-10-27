@@ -22,7 +22,7 @@ A responsive product listing page built with React. Users can browse a grid of p
 | Cart | The cart icon in the navbar opens `CartDrawer`, which lists each product with its quantity (− / +), a **Remove** link, line totals, the subtotal and **Clear cart**. The `useCart` hook keeps the cart and saves it in `localStorage`, so it survives a page reload |
 | Combined filters | Search, category and sort work together. `ResultsBar` shows the current category and how many products match |
 | Empty state | If nothing matches, `EmptyState` shows a "No products found" message with a **Clear filters** button |
-| Navigation bar and header | A sticky `Navbar` (brand, links, cart button with a count) and a `Header` banner with the page title |
+| Navigation bar and header | A sticky `Navbar` (brand and a cart button with a count) and a `Header` banner with the page title |
 | Responsive design | The grid shows 4 columns on desktop, 3 on tablet, 2 on phones and 1 on very narrow screens. On small screens the toolbar stacks and the category buttons wrap onto extra rows |
 | Styling | Plain CSS. Each component has its own stylesheet, and shared design tokens live in `src/index.css` |
 

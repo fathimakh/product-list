@@ -1,11 +1,6 @@
 import { CartIcon } from './Icons'
 import './Navbar.css'
 
-const NAV_LINKS = [
-  { href: '#home', label: 'Home' },
-  { href: '#products', label: 'Products' },
-]
-
 function Navbar({ brand, cartCount, onCartClick }) {
   const itemsLabel = `${cartCount} ${cartCount === 1 ? 'item' : 'items'}`
 
@@ -18,16 +13,6 @@ function Navbar({ brand, cartCount, onCartClick }) {
           </span>
           {brand}
         </a>
-
-        <ul className="navbar__links">
-          {NAV_LINKS.map((link) => (
-            <li key={link.href}>
-              <a href={link.href} className="navbar__link">
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
 
         <button
           type="button"

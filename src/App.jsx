@@ -1,120 +1,92 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import { useMemo, useState } from 'react'
+import CategoryFilter from './components/CategoryFilter'
+import EmptyState from './components/EmptyState'
+import Header from './components/Header'
+import Navbar from './components/Navbar'
+import ProductGrid from './components/ProductGrid'
+import SearchBar from './components/SearchBar'
+import SortSelect from './components/SortSelect'
+import products from './data/products'
+import {
+  ALL_CATEGORIES,
+  SORT_OPTIONS,
+  filterAndSortProducts,
+  getCategories,
+} from './utils/productUtils'
 import './App.css'
 
+const CATEGORIES = getCategories(products)
+const DEFAULT_SORT = SORT_OPTIONS[0].value
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [category, setCategory] = useState(ALL_CATEGORIES)
+  const [sortBy, setSortBy] = useState(DEFAULT_SORT)
+  const [cartCount, setCartCount] = useState(0)
+
+  const visibleProducts = useMemo(
+    () => filterAndSortProducts(products, { searchTerm, category, sortBy }),
+    [searchTerm, category, sortBy],
+  )
+
+  const trimmedSearch = searchTerm.trim()
+  const hasActiveFilters = trimmedSearch !== '' || category !== ALL_CATEGORIES
+
+  function handleAddToCart(product) {
+    console.log(product.name)
+    setCartCount((count) => count + 1)
+  }
+
+  function clearFilters() {
+    setSearchTerm('')
+    setCategory(ALL_CATEGORIES)
+  }
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      <Navbar brand="ShopEase" cartCount={cartCount} />
+      <Header
+        title="Find products you'll love"
+        subtitle="Browse the catalogue, search by name, filter by category and sort by price or rating."
+      />
 
-      <div className="ticks"></div>
+      <main id="products" className="main container">
+        <section className="toolbar" aria-label="Search, filter and sort products">
+          <div className="toolbar__row">
+            <SearchBar value={searchTerm} onChange={setSearchTerm} />
+            <SortSelect value={sortBy} onChange={setSortBy} options={SORT_OPTIONS} />
+          </div>
+          <CategoryFilter categories={CATEGORIES} selected={category} onSelect={setCategory} />
+        </section>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+        <div className="results-bar">
+          <div>
+            <h2 className="results-bar__title">
+              {category === ALL_CATEGORIES ? 'All Products' : category}
+            </h2>
+            <p className="results-bar__count" aria-live="polite">
+              Showing {visibleProducts.length} of {products.length} products
+              {trimmedSearch && ` matching "${trimmedSearch}"`}
+            </p>
+          </div>
+          {hasActiveFilters && (
+            <button type="button" className="results-bar__clear" onClick={clearFilters}>
+              Clear filters
+            </button>
+          )}
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+        {visibleProducts.length > 0 ? (
+          <ProductGrid products={visibleProducts} onAddToCart={handleAddToCart} />
+        ) : (
+          <EmptyState
+            title="No products found"
+            message="Try a different search term or choose another category."
+            actionLabel="Clear filters"
+            onAction={clearFilters}
+          />
+        )}
+      </main>
     </>
   )
 }

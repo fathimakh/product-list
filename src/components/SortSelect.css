@@ -30,3 +30,9 @@
   box-shadow: 0 0 0 3px var(--color-primary-soft);
   outline: none;
 }
+
+@media (max-width: 600px) {
+  .sort-select__control {
+    flex: 1;
+  }
+}

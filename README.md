@@ -4,7 +4,7 @@
 
 A responsive product listing page built with React. Users can browse a grid of products, search by name, filter by category, sort by price or rating, open a product to see it larger, and add items to a cart. Clicking **Add to Cart** logs the product's name to the browser console.
 
-**GitHub repository:** _add the repository link here after pushing_
+**GitHub repository:** https://github.com/fathimakh/product-list
 
 ---
 
